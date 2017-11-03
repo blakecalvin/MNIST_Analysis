@@ -1,0 +1,19 @@
+--------------MnistData------------
+   Algorithm   |  K  |  ErrorRate
+-----------------------------------
+   Manhattan   |  1  |    3.69 %
+   Manhattan   |  2  |    4.60 %
+   Manhattan   |  3  |    3.67 %
+   Manhattan   |  4  |    3.93 %
+   Manhattan   |  5  |    3.82 %
+   Manhattan   |  7  |    3.85 %
+   Manhattan   | 10  |    4.11 %
+   Euclidian   |  1  |    3.09 %
+   Euclidian   |  2  |    3.73 %
+   Euclidian   |  3  |    2.95 %
+   Euclidian   |  4  |    3.18 %
+   Euclidian   |  5  |    3.12 %
+   Euclidian   |  7  |    3.06 %
+   Euclidian   | 10  |    3.35 %
+   Minkowski   |  1  |    2.83 %
+   Minkowski   |  2  |    3.32 %
