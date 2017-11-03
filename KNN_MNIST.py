@@ -1,17 +1,8 @@
 from mnist import MNIST
 from sklearn import neighbors
-from time import sleep
 import numpy as np
+import sys
 import warnings
-
-def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '█'):
-    percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
-    filledLength = int(length * iteration // total)
-    bar = fill * filledLength + '-' * (length - filledLength)
-    print('\r%s |%s| %s%% %s' % (prefix, bar, percent, suffix), end = '\r')
-    # Print New Line on Complete
-    if iteration == total:
-        print()
 
 def scikit(k, trainImages, trainLabels, testImages, testLabels, algo):
     warnings.simplefilter("ignore", category=DeprecationWarning)
@@ -30,7 +21,6 @@ def scikit(k, trainImages, trainLabels, testImages, testLabels, algo):
     wrong = 0
     count = 0
 
-    printProgressBar(0, len(X2), prefix = ' Progress:', suffix = 'Complete', length = 50)
     #predict and compare to known label
     for x in X2:
         p = clf.predict(x)
@@ -75,33 +65,13 @@ def export(distAlgorithm, k, errorRate):
     f.write('{:^15}|{:^5d}|{:>8.2f} %\n'.format(name, k, errorRate))
 
 def main():
-    print()
-    print('--- MNIST data prediction using k-Nearest Neighbors Classifier ---')
-
-    condition = True
-    while condition:
-        print()
-        k = int(input('Enter k value: '))
-        print()
-        print('Distance algorithms:')
-        print(' 1. Manhattan')
-        print(' 2. Euclidian')
-        print(' 3. Minkowski')
-        distAlgorithm = int(input('Enter corresponding # for algorithm: '))
-        print()
-
-        errorRate = kNN(k, distAlgorithm)
-
-        export(distAlgorithm, k, errorRate)
-
-        print()
-        print('What do you want to do?')
-        print(' 1. Exit')
-        print(' 2. Run more tests')
-        exit = int(input('Enter corresponding #: '))
-
-        if exit == 1:
-            condition = False
-            print()
+    k = int(input('Enter k value: '))
+    print('Distance algorithms:')
+    print(' 1. Manhattan')
+    print(' 2. Euclidian')
+    print(' 3. Minkowski')
+    distAlgorithm = int(input('Enter corresponding # for algorithm: '))
+    errorRate = kNN(k, distAlgorithm)
+    export(distAlgorithm, k, errorRate)
 
 main()
