@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import warnings
 
-def scikit(k, trainImages, trainLabels, testImages, testLabels, algo):
+def scikit(k=5, trainImages, trainLabels, testImages, testLabels, algo=2):
     warnings.simplefilter("ignore", category=DeprecationWarning)
 
     #training
@@ -74,4 +74,5 @@ def main():
     errorRate = kNN(k, distAlgorithm)
     export(distAlgorithm, k, errorRate)
 
-main()
+if __name__ == "__main__":
+    main()
