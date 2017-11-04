@@ -43,7 +43,7 @@ def loadData(model, k, distAlgorithm):
     errorRate = 0.0
 
     if model == 1:
-        errorRate = scikit(k, images, labels, images2, labels2, distAlgorithm)
+        errorRate = scikit_KNN(k, images, labels, images2, labels2, distAlgorithm)
     elif model == 2:
         errorRate = 0.0
 
