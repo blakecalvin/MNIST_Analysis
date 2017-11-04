@@ -62,18 +62,17 @@ def export(model, distAlgorithm, k, errorRate):
         f = open('MnistData.txt', 'a')
         f.write('{:^15}|{:^5d}|{:>8.2f} %\n'.format(name, k, errorRate))
     elif model == 2:
+        name = ''
 
 
-'''
-    arg1 = model
-        1 = KNN
-        2 = SOM
-    arg2 = Distance algorithm
-        1 = Manhattan
-        2 = Euclidian
-        3 = Minkowski (p=3)
-    arg3 = k
-'''
+    #    arg1 = model
+    #        1 = KNN
+    #        2 = SOM
+    #    arg2 = Distance algorithm
+    #        1 = Manhattan
+    #        2 = Euclidian
+    #        3 = Minkowski (p=3)
+    #    arg3 = k
 def main(arg1, arg2=0, arg3=0):
     model = arg1
     algo = arg2
