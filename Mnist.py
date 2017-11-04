@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import warnings
 
-def scikit_KNN(k=1, trainImages, trainLabels, testImages, testLabels, algo=2):
+def scikit_KNN(k, trainImages, trainLabels, testImages, testLabels, algo):
     warnings.simplefilter("ignore", category=DeprecationWarning)
 
     #training
@@ -27,7 +27,6 @@ def scikit_KNN(k=1, trainImages, trainLabels, testImages, testLabels, algo=2):
         compare = (p == Y2[count])
         if compare == False: wrong += 1
         count += 1
-        printProgressBar(count, len(X2), prefix = ' Progress:', suffix = 'Complete', length = 50)
     errorRate = (wrong/count)*100
 
     return errorRate
