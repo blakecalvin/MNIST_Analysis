@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import warnings
 
-def scikit_KNN(k=5, trainImages, trainLabels, testImages, testLabels, algo=2):
+def scikit_KNN(k=1, trainImages, trainLabels, testImages, testLabels, algo=2):
     warnings.simplefilter("ignore", category=DeprecationWarning)
 
     #training
