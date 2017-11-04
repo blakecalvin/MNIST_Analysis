@@ -32,7 +32,7 @@ def scikit(k=5, trainImages, trainLabels, testImages, testLabels, algo=2):
 
     return errorRate
 
-def kNN(k, distAlgorithm):
+def loadData(model, k, distAlgorithm):
 
     mndata = MNIST('samples')
 
@@ -64,15 +64,24 @@ def export(distAlgorithm, k, errorRate):
     f = open('MnistData.txt', 'a')
     f.write('{:^15}|{:^5d}|{:>8.2f} %\n'.format(name, k, errorRate))
 
-def main():
-    k = int(input('Enter k value: '))
-    print('Distance algorithms:')
-    print(' 1. Manhattan')
-    print(' 2. Euclidian')
-    print(' 3. Minkowski')
-    distAlgorithm = int(input('Enter corresponding # for algorithm: '))
-    errorRate = kNN(k, distAlgorithm)
-    export(distAlgorithm, k, errorRate)
+'''
+    arg1 = model
+        1 = KNN
+        2 = SOM
+    arg2 = Distance algorithm
+        1 = Manhattan
+        2 = Euclidian
+        3 = Minkowski (p=3)
+    arg3 = k
+'''
+def main(arg1, arg2=0, arg3=0):
+    model = arg1
+    algo = arg2
+    k = arg3
+
+    errorRate = loadData(model, k, algo)
+
+    export(model, algo, k, errorRate)
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1], sys.argv[2], sys.argv[3])
