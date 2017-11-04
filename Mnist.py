@@ -1,6 +1,6 @@
 from mnist import MNIST
 from sklearn import neighbors
-import sompy
+from sompy import SOM
 import numpy as np
 import sys
 import warnings
