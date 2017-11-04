@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import warnings
 
-def scikit(k=5, trainImages, trainLabels, testImages, testLabels, algo=2):
+def scikit_KNN(k=5, trainImages, trainLabels, testImages, testLabels, algo=2):
     warnings.simplefilter("ignore", category=DeprecationWarning)
 
     #training
@@ -43,26 +43,26 @@ def loadData(model, k, distAlgorithm):
 
     errorRate = 0.0
 
-    if distAlgorithm == 1:
-        errorRate = scikit(k, images, labels, images2, labels2, 1)
-    elif distAlgorithm == 2:
-        errorRate = scikit(k, images, labels, images2, labels2, 2)
-    elif distAlgorithm == 3:
-        errorRate = scikit(k, images, labels, images2, labels2, 3)
+    if model == 1:
+        errorRate = scikit(k, images, labels, images2, labels2, distAlgorithm)
+    elif model == 2:
+        errorRate = 0.0
 
     return errorRate
 
-def export(distAlgorithm, k, errorRate):
-    name = ''
-    if distAlgorithm == 1:
-        name = 'Manhattan'
-    elif distAlgorithm == 2:
-        name = 'Euclidian'
-    elif distAlgorithm == 3:
-        name = 'Minkowski'
+def export(model, distAlgorithm, k, errorRate):
+    if model == 1:
+        name = ''
+        if distAlgorithm == 1:
+            name = 'Manhattan'
+        elif distAlgorithm == 2:
+            name = 'Euclidian'
+        elif distAlgorithm == 3:
+            name = 'Minkowski'
+        f = open('MnistData.txt', 'a')
+        f.write('{:^15}|{:^5d}|{:>8.2f} %\n'.format(name, k, errorRate))
+    elif model == 2:
 
-    f = open('MnistData.txt', 'a')
-    f.write('{:^15}|{:^5d}|{:>8.2f} %\n'.format(name, k, errorRate))
 
 '''
     arg1 = model
