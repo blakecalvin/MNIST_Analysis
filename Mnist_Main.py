@@ -10,4 +10,4 @@ import Mnist
         3 = Minkowski (p=3)
     arg3 = k
 '''
-Mnist.main(1, 2, 5)
+Mnist.main(arg1=2,arg3=5)
