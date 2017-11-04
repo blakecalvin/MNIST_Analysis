@@ -1,5 +1,6 @@
 from mnist import MNIST
 from sklearn import neighbors
+import sompy
 import numpy as np
 import sys
 import warnings
@@ -31,6 +32,33 @@ def scikit_KNN(k, trainImages, trainLabels, testImages, testLabels, algo):
 
     return errorRate
 
+def sompy_SOM(k, trainImages, trainLabels, testImages, testLabels):
+    warnings.simplefilter("ignore", category=DeprecationWarning)
+
+    #training
+    Y = np.array(trainLabels)
+    X = np.array(trainImages)
+    clf = sompy.SOM(data=X, neighborhood='Gaussian', mapsize=1000)
+    clf.data_labels(Y)
+
+    #test
+    Y2 = np.array(testLabels)
+    X2 = np.array(testImages)
+
+    #var
+    wrong = 0
+    count = 0
+
+    #predict and compare to known label
+    for x in X2:
+        p = clf.predict(x_test=x, k=k)
+        compare = (p == Y2[count])
+        if compare == False: wrong += 1
+        count += 1
+    errorRate = (wrong/count)*100
+
+    return errorRate
+
 def loadData(model, k, distAlgorithm):
 
     mndata = MNIST('samples')
@@ -45,7 +73,7 @@ def loadData(model, k, distAlgorithm):
     if model == 1:
         errorRate = scikit_KNN(k, images, labels, images2, labels2, distAlgorithm)
     elif model == 2:
-        errorRate = 0.0
+        errorRate = sompy_SOM(k, images, labels, images2, labels2)
 
     return errorRate
 
@@ -61,8 +89,9 @@ def export(model, distAlgorithm, k, errorRate):
         f = open('MnistData.txt', 'a')
         f.write('{:^15}|{:^5d}|{:>8.2f} %\n'.format(name, k, errorRate))
     elif model == 2:
-        name = ''
-
+        name = 'Gaussian'
+        f = open('MnistData_SOM.txt', 'a')
+        f.write('{:^15}|{:^5d}|{:>8.2f} %\n'.format(name, k, errorRate))
 
     #    arg1 = model
     #        1 = KNN
