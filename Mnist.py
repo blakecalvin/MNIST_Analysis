@@ -38,7 +38,7 @@ def sompy_SOM(k, trainImages, trainLabels, testImages, testLabels):
     #training
     Y = np.array(trainLabels)
     X = np.array(trainImages)
-    clf = sompy.SOM(data=X, neighborhood='Gaussian', mapsize=1000)
+    sompy.SOM(name=clf, Data=X, neigh='Gaussian', mapsize=1000) #error
     clf.data_labels(Y)
 
     #test
