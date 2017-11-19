@@ -10,4 +10,4 @@ import Mnist
     #    arg3 = k
     #    arg4 = k_means
 
-Mnist.main(arg1=1,arg3=5)
+Mnist.main(arg1=2,arg3=1,arg4=1)
