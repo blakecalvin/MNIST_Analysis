@@ -1,3 +1,4 @@
----------------MnistData_Outliers--------------
-   Algorithm   |  K  |  K_means  |  ErrorRate
------------------------------------------------
+---------MnistData_Outliers-------
+   Algorithm   |  K  |  ErrorRate
+----------------------------------
+   Euclidian   |  1  |   89.80 %

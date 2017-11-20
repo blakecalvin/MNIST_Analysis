@@ -44,7 +44,7 @@ def scikit_KNN(k, trainImages, trainLabels, testImages, testLabels, algo):
 
     return errorRate
 
-def outliers(k, k_means, trainImages, trainLabels, testImages, testLabels, distAlgorithm, Percentage=5):
+def outliers(k, trainImages, trainLabels, testImages, testLabels, distAlgorithm, Percentage=5):
     warnings.simplefilter("ignore", category=DeprecationWarning)
 
     #training
@@ -123,7 +123,7 @@ def outliers(k, k_means, trainImages, trainLabels, testImages, testLabels, distA
 
     return errorRate
 
-def loadData(model, k, k_means, distAlgorithm):
+def loadData(model, k, distAlgorithm):
 
     mndata = MNIST('samples')
 
@@ -137,11 +137,11 @@ def loadData(model, k, k_means, distAlgorithm):
     if model == 1:
         errorRate = scikit_KNN(k, images, labels, images2, labels2, distAlgorithm)
     elif model == 2:
-        errorRate = outliers(k, k_means, images, labels, images2, labels2, distAlgorithm)
+        errorRate = outliers(k, images, labels, images2, labels2, distAlgorithm)
 
     return errorRate
 
-def export(model, distAlgorithm, k, k_means, errorRate):
+def export(model, distAlgorithm, k, errorRate):
     #KNN
     if model == 1:
         name = ''
@@ -163,7 +163,7 @@ def export(model, distAlgorithm, k, k_means, errorRate):
         elif distAlgorithm == 3:
             name = 'Minkowski'
         f = open('MnistData_Outliers.txt', 'a')
-        f.write('{:^15}|{:^5d}|{:^11d}|{:>8.2f} %\n'.format(name, k, k_means, errorRate))
+        f.write('{:^15}|{:^5d}|{:>8.2f} %\n'.format(name, k, errorRate))
 
     #    arg1 = model
     #        1 = KNN
@@ -173,16 +173,14 @@ def export(model, distAlgorithm, k, k_means, errorRate):
     #        2 = Euclidian
     #        3 = Minkowski (p=3)
     #    arg3 = k
-    #    arg4 = k_means
-def main(arg1, arg2=2, arg3=0, arg4=0):
+def main(arg1, arg2, arg3):
     model = arg1
     algo = arg2
     k = arg3
-    k_means = arg4
 
-    errorRate = loadData(model, k, k_means, algo)
+    errorRate = loadData(model, k, algo)
 
-    export(model, algo, k, k_means, errorRate)
+    export(model, algo, k, errorRate)
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    main(sys.argv[1], sys.argv[2], sys.argv[3])
