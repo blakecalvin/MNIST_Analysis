@@ -9,5 +9,5 @@ import Mnist
     #        3 = Minkowski (p=3)
     #    arg3 = k
 for i in range(2,10):
-    Mnist.main(arg1=2,arg2=2,arg4=i)
+    Mnist.main(arg1=2,arg2=2,arg3=i)
     print(str(i)+": complete.")
