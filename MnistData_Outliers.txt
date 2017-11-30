@@ -2,3 +2,6 @@
    Algorithm   |  K  |  ErrorRate
 ----------------------------------
    Euclidian   |  1  |   89.80 %
+   Euclidian   |  2  |   89.95 %
+   Euclidian   |  3  |   90.06 %
+   Euclidian   |  4  |   90.10 %
