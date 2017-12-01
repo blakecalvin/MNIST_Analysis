@@ -18,12 +18,13 @@ def Chebyshev(a, b, p):
         summation += pow(abs(b[i]-a[i]), p)
     return pow(summation, float(1/p))
 
-def scikit_MLP(trainImages, trainLabels, testImages, testLabels):
+def scikit_MLP(k, trainImages, trainLabels, testImages, testLabels):
+    warnings.simplefilter("ignore", category=DeprecationWarning)
 
     X = np.array(trainImages)
     Y = np.array(trainLabels)
 
-    clf = MLPClassifier(hidden_layer_sizes=(50,))
+    clf = MLPClassifier(hidden_layer_sizes=(k,))
     clf.fit(X, Y)
 
     #test
@@ -36,6 +37,7 @@ def scikit_MLP(trainImages, trainLabels, testImages, testLabels):
     #predict and compare to known label
     for x in X2:
         p = clf.predict(x)
+        print(p)
         compare = (p == Y2[count])
         if compare == False: wrong += 1
         count += 1
@@ -165,7 +167,7 @@ def loadData(model, k, distAlgorithm):
     elif model == 2:
         errorRate = outliers(k, images, labels, images2, labels2, distAlgorithm)
     elif model == 3:
-        errorRate = scikit_MLP(images, labels, images2, labels2)
+        errorRate = scikit_MLP(k, images, labels, images2, labels2)
 
     return errorRate
 
@@ -192,10 +194,10 @@ def export(model, distAlgorithm, k, errorRate):
             name = 'Minkowski'
         f = open('MnistData_Outliers.txt', 'a')
         f.write('{:^15}|{:^5d}|{:>8.2f} %\n'.format(name, k, errorRate))
-        
+
     elif model == 3:
         f = open('MnistData_MLP.txt', 'a')
-        f.write('{:>8.2f} %\n'.format(errorRate))
+        f.write('{:^16}|{:>8.2f} %\n'.format(k ,errorRate))
 
     #    arg1 = model
     #        1 = KNN
@@ -209,6 +211,8 @@ def main(arg1, arg2, arg3):
     model = arg1
     algo = arg2
     k = arg3
+
+    print(model)
 
     errorRate = loadData(model, k, algo)
 

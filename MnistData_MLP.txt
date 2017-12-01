@@ -1,3 +1,4 @@
--MnistData_MLP-
-  ErrorRate
----------------
+-------MnistData_MLP-------
+  Hidden Layers | ErrorRate
+---------------------------
+      100       |    3.94 %
