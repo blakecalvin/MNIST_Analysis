@@ -1,6 +1,7 @@
 from mnist import MNIST
 from sklearn import neighbors
 from sklearn.cluster import KMeans
+from sklearn.neural_network import MLPClassifier
 import numpy as np
 import sys
 import warnings
@@ -16,6 +17,31 @@ def Chebyshev(a, b, p):
     for i in range(0,len(a)):
         summation += pow(abs(b[i]-a[i]), p)
     return pow(summation, float(1/p))
+
+def scikit_MLP(trainImages, trainLabels, testImages, testLabels):
+
+    X = np.array(trainImages)
+    Y = np.array(trainLabels)
+
+    clf = MLPClassifier(hidden_layer_sizes=(50,))
+    clf.fit(X, Y)
+
+    #test
+    Y2 = np.array(testLabels)
+    X2 = np.array(testImages)
+
+    wrong = 0
+    count = 0
+
+    #predict and compare to known label
+    for x in X2:
+        p = clf.predict(x)
+        compare = (p == Y2[count])
+        if compare == False: wrong += 1
+        count += 1
+    errorRate = (wrong/count)*100
+
+    return errorRate
 
 def scikit_KNN(k, trainImages, trainLabels, testImages, testLabels, algo):
     warnings.simplefilter("ignore", category=DeprecationWarning)
@@ -138,6 +164,8 @@ def loadData(model, k, distAlgorithm):
         errorRate = scikit_KNN(k, images, labels, images2, labels2, distAlgorithm)
     elif model == 2:
         errorRate = outliers(k, images, labels, images2, labels2, distAlgorithm)
+    elif model == 3:
+        errorRate = scikit_MLP(images, labels, images2, labels2)
 
     return errorRate
 
@@ -164,6 +192,10 @@ def export(model, distAlgorithm, k, errorRate):
             name = 'Minkowski'
         f = open('MnistData_Outliers.txt', 'a')
         f.write('{:^15}|{:^5d}|{:>8.2f} %\n'.format(name, k, errorRate))
+        
+    elif model == 3:
+        f = open('MnistData_MLP.txt', 'a')
+        f.write('{:>8.2f} %\n'.format(errorRate))
 
     #    arg1 = model
     #        1 = KNN

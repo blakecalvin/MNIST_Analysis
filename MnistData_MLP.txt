@@ -1,0 +1,3 @@
+-MnistData_MLP-
+  ErrorRate
+---------------
